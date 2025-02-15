@@ -112,6 +112,7 @@ function App() {
       { value: ALPHABET[getRandomNumber(ALPHABET.length)], select: false },
     ],
   ]);
+  const [startSelect, setStartSelect] = useState(false);
 
   console.log({ wordSearch });
 
@@ -190,6 +191,18 @@ function App() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                  }}
+                  // onClick={(e) => console.log({ e })}
+                  onMouseDown={() => setStartSelect(true)}
+                  onMouseUp={() => setStartSelect(false)}
+                  onMouseMove={() => {
+                    if (!startSelect) return;
+                    // setWordSearch((p) => {
+                    //   return [...p, [...p[idx], { ...cur, select: true }]];
+                    // });
+                    // ({ ...cur, selecct: true });
+                    // console.log(cur.value);
+                    console.log(cur.select);
                   }}
                 >
                   {cur.value}
