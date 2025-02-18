@@ -130,8 +130,9 @@ function App() {
       </header>
       <main
         style={{
-          height: "100%",
-          flex: "1",
+          width: "100%",
+          // height: "100%",
+          // flex: "1",
           // minHeight: "100dvh",
           display: "flex",
           flexDirection: "column",
@@ -139,7 +140,7 @@ function App() {
           justifyItems: "center",
         }}
       >
-        <section
+        {/* <section
           style={{
             display: "flex",
             // flexDirection: "column",
@@ -150,20 +151,20 @@ function App() {
           <span>time</span>
           <button>clear</button>
           <button>reset</button>
-        </section>
+        </section> */}
 
         <section
           style={{
+            // flex: "1",
             width: "100%",
             maxWidth: "800px",
-            flex: "1",
+            padding: "50px 0px",
             background: "purple",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
 
-            padding: "4px",
             // gap: "14px",
           }}
         >
@@ -187,7 +188,8 @@ function App() {
                   style={{
                     height: "30px",
                     width: "30px",
-                    background: "green",
+                    border: "solid 1px royalblue",
+                    background: "olive",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -216,6 +218,7 @@ function App() {
           style={{
             width: "100%",
             height: "10%",
+            padding: "10px 0px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -227,6 +230,7 @@ function App() {
           </h2>
           <ul
             style={{
+              padding: "20px 0px",
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr 1fr",
               gap: "10px 60px",
@@ -250,7 +254,9 @@ function App() {
           </ul>
         </section>
       </main>
-      <footer>by Lachicagadiadora</footer>
+      <footer style={{ width: "100%", textAlign: "center", padding: "40px" }}>
+        by Lachicagadiadora
+      </footer>
     </>
   );
 }
