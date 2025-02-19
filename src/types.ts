@@ -1,5 +1,5 @@
 export type Letter = {
-  id: number;
+  id: string;
   // indexRow: number;
   // indexColumn: number;
   value: string;
