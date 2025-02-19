@@ -1,26 +1,15 @@
 import { useState } from "react";
-import { ALPHABET, WORD_LIST } from "./constants";
+import { WORD_LIST } from "./constants";
 import { Letter, Row } from "./types";
-import { getRandomLetter, getRandomNumber } from "./utils";
+import { getRandomLetter } from "./utils";
 
-const initialWordList = (object: any): string[] => {
+const initialWordList = (object): string[] => {
   const keys = Object.keys(object);
   const random = keys[Math.floor(Math.random() * keys.length)];
   const listRandom = object[`${random}`];
   return listRandom;
 };
 initialWordList(WORD_LIST);
-
-const listInitial = [
-  [
-    { id: "00", value: "carrot", select: false },
-    { id: "01", value: "pineapple", select: false },
-  ],
-  [
-    { id: "10", value: "orange", select: false },
-    { id: "11", value: "lettuce", select: false },
-  ],
-];
 
 const INITIAL_BOARD = [
   [
@@ -32,20 +21,6 @@ const INITIAL_BOARD = [
     { id: "05", value: getRandomLetter(), select: false },
     { id: "06", value: getRandomLetter(), select: false },
     { id: "07", value: getRandomLetter(), select: false },
-    // { id: 91, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 0, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 0, value: getRandomLetter(), select: false },
   ],
   [
     { id: "10", value: getRandomLetter(), select: false },
@@ -56,20 +31,6 @@ const INITIAL_BOARD = [
     { id: "15", value: getRandomLetter(), select: false },
     { id: "16", value: getRandomLetter(), select: false },
     { id: "17", value: getRandomLetter(), select: false },
-    // { id: 92, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 1, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 1, value: getRandomLetter(), select: false },
   ],
   [
     { id: "20", value: getRandomLetter(), select: false },
@@ -80,20 +41,6 @@ const INITIAL_BOARD = [
     { id: "25", value: getRandomLetter(), select: false },
     { id: "26", value: getRandomLetter(), select: false },
     { id: "27", value: getRandomLetter(), select: false },
-    // { id: 93, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 2, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 2, value: getRandomLetter(), select: false },
   ],
   [
     { id: "30", value: getRandomLetter(), select: false },
@@ -104,20 +51,6 @@ const INITIAL_BOARD = [
     { id: "35", value: getRandomLetter(), select: false },
     { id: "36", value: getRandomLetter(), select: false },
     { id: "37", value: getRandomLetter(), select: false },
-    // { id: 94, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 3, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 3, value: getRandomLetter(), select: false },
   ],
   [
     { id: "40", value: getRandomLetter(), select: false },
@@ -128,20 +61,6 @@ const INITIAL_BOARD = [
     { id: "45", value: getRandomLetter(), select: false },
     { id: "46", value: getRandomLetter(), select: false },
     { id: "47", value: getRandomLetter(), select: false },
-    // { id: 95, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 4, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 4, value: getRandomLetter(), select: false },
   ],
   [
     { id: "50", value: getRandomLetter(), select: false },
@@ -152,20 +71,6 @@ const INITIAL_BOARD = [
     { id: "55", value: getRandomLetter(), select: false },
     { id: "56", value: getRandomLetter(), select: false },
     { id: "57", value: getRandomLetter(), select: false },
-    // { id: 96, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 5, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 5, value: getRandomLetter(), select: false },
   ],
   [
     { id: "60", value: getRandomLetter(), select: false },
@@ -176,20 +81,6 @@ const INITIAL_BOARD = [
     { id: "65", value: getRandomLetter(), select: false },
     { id: "66", value: getRandomLetter(), select: false },
     { id: "67", value: getRandomLetter(), select: false },
-    // { id: 97, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 6, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 6, value: getRandomLetter(), select: false },
   ],
   [
     { id: "70", value: getRandomLetter(), select: false },
@@ -200,20 +91,6 @@ const INITIAL_BOARD = [
     { id: "75", value: getRandomLetter(), select: false },
     { id: "76", value: getRandomLetter(), select: false },
     { id: "77", value: getRandomLetter(), select: false },
-    // { id: 98, value: getRandomLetter(), select: false },
-    // { indexColumn: 9, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 10, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 11, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 12, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 13, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 14, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 15, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 16, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 17, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 18, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 19, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 20, indexRow: 7, value: getRandomLetter(), select: false },
-    // { indexColumn: 21, indexRow: 7, value: getRandomLetter(), select: false },
   ],
 ];
 
@@ -222,8 +99,31 @@ function App() {
   const [checkWord, setCheckWord] = useState<string[]>([]);
   const [board, setBoard] = useState<Row[]>(INITIAL_BOARD);
   const [startSelect, setStartSelect] = useState(false);
+  const [currentWord, setCurrentWord] = useState<Letter[]>([]);
 
   console.log({ board });
+
+  type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
+
+  const onSelectLetter = ({ letter, rowId, columnId }: OnSelectInput) => {
+    if (letter.id !== `${rowId}${columnId}`) return;
+    setBoard((p) => {
+      const updatedList = p.map((prevc) =>
+        prevc.map((pcur) =>
+          pcur.id === letter.id ? { ...pcur, select: true } : pcur
+        )
+      );
+      console.log("end", { updatedList });
+      return updatedList;
+    });
+  };
+
+  // const uniqueLetter = (arr: Letter[], letter: Letter) => {
+  //   const existLetter = arr.filter((c) => (c.id === letter.id ? false : true));
+  //   console.log({ existLetter });
+  //   return existLetter;
+  //   // setCurrentWord(existLetter);
+  // };
 
   return (
     <>
@@ -282,21 +182,17 @@ function App() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onClick={() =>
+                    onSelectLetter({ letter: cur, rowId: i, columnId: idx })
+                  }
                   onMouseDown={() => setStartSelect(true)}
                   onMouseUp={() => setStartSelect(false)}
                   onMouseMove={() => {
                     if (!startSelect) return;
-                    console.log("start", cur.id, `${i}${idx}`);
-                    if (cur.id !== `${i}${idx}`) return;
-                    setBoard((p) => {
-                      const updatedList = p.map((prevc) =>
-                        prevc.map((pcur) =>
-                          pcur.id === cur.id ? { ...pcur, select: true } : pcur
-                        )
-                      );
-                      console.log("end", { updatedList });
-                      return updatedList;
-                    });
+                    onSelectLetter({ letter: cur, rowId: i, columnId: idx });
+                    // uniqueLetter(p, cur)
+                    setCurrentWord((p) => [...p, cur]);
+                    console.log({ currentWord });
                   }}
                 >
                   {cur.value}
