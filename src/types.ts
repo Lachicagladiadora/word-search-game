@@ -1,6 +1,7 @@
 export type Letter = {
-  indexRow: number;
-  indexColumn: number;
+  id: number;
+  // indexRow: number;
+  // indexColumn: number;
   value: string;
   select: boolean;
 };
