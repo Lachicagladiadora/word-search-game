@@ -228,13 +228,6 @@ function App() {
   } | null>(null);
   const [list, setList] = useState(listInitial);
 
-  // console.log({  board });
-
-  // const onUpdateItemList = (id: number) => {
-  //   console.log(id);
-  // };
-
-  // list[0][1] = "jiji";
   console.log({ value: list[0][1], list });
   console.log({ current });
 
@@ -262,19 +255,6 @@ function App() {
           justifyItems: "center",
         }}
       >
-        {/* <section
-          style={{
-            display: "flex",
-            // flexDirection: "column",
-            alignItems: "center",
-            justifyItems: "center",
-          }}
-        >
-          <span>time</span>
-          <button>clear</button>
-          <button>reset</button>
-        </section> */}
-
         <section
           style={{
             // flex: "1",
@@ -298,49 +278,26 @@ function App() {
                 display: "flex",
                 gap: "20px",
                 border: "solid 1px black",
-                // flexDirection: "column",
               }}
             >
               {c.map((cur, idx) => (
                 <div
                   key={idx}
                   onClick={() => {
-                    // list.indexOf(Number(`${i}${idx}`))
                     if (cur.id === `${i}${idx}`) {
-                      // list[i][idx] = { ...cur, value: "jojo" + cur.value };
-                      // setList((p) => {
-                      //   const newList = [
-                      //     [...p[i], { ...p[i][idx], value: "jojo" }],
-                      //   ];
-                      // (p[i][idx] = {
-                      //   ...cur,
-                      //   value: "jojo" + cur.value,
-                      // });
-                      // cur.value = "SUN";
                       setList((p) => {
-                        // console.log({ p });
-                        const newList =
-                          // ...p,
-                          p.map(
-                            (cp) =>
-                              // ...cp,
-                              cp.map((curp) => {
-                                return curp.id !== cur.id
-                                  ? curp
-                                  : { ...curp, select: !cur.select };
-                              })
-                            // ...cp,
-                          );
-                        // ...p,
+                        const newList = p.map((cp) =>
+                          cp.map((curp) => {
+                            return curp.id !== cur.id
+                              ? curp
+                              : { ...curp, select: !cur.select };
+                          })
+                        );
                         return newList;
                       });
                       console.log("jojo", list[i][idx]);
-                      //   return newList;
-                      // });
                     }
-                    // list[i][idx] = { ...cur, value: "jiji" };
                     console.log("ja ja", `${i}${idx}`, cur.id);
-                    // setCurrent(cur);
                   }}
                   style={{
                     display: "flex",
@@ -375,31 +332,10 @@ function App() {
                     width: "50px",
                     fontSize: "40px",
                     userSelect: "none",
-                    // border: "solid 1px royalblue",
                     background: `${cur.select ? "red" : "midnightblue"}`,
-                    // background: `${
-                    //   currentLetter?.indexColumn === idx &&
-                    //   currentLetter.indexRow === i
-                    //     ? "red"
-                    //     : "midnightblue"
-                    // }`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    setCurrentLetter(cur);
-                    // console.log({ currentLetter, cur, i, idx });
-                    setBoard((p) => {
-                      if (
-                        p.indexOf(c) === cur.indexRow &&
-                        p[i].indexOf(cur) === cur.indexColumn
-                      )
-                        // console.log("jiji");
-                        return [...p, [...c, { ...cur, select: !cur.select }]];
-                      // const updatedBoard = [...p, {}];
-                    });
-                    return { ...cur, select: !cur.select };
                   }}
                   // onMouseDown={() => setStartSelect(true)}
                   // onMouseUp={() => setStartSelect(false)}
