@@ -222,15 +222,7 @@ function App() {
   const [checkWord, setCheckWord] = useState<string[]>([]);
   const [board, setBoard] = useState<Row[]>(INITIAL_BOARD);
   const [startSelect, setStartSelect] = useState(false);
-  // const [currentLetter, setCurrentLetter] = useState<Letter | null>(null);
-  // const [current, setCurrent] = useState<{
-  //   id: number;
-  //   value: string;
-  //   select: boolean;
-  // } | null>(null);
-  const [list, setList] = useState(listInitial);
 
-  console.log({ value: list[0][1], list });
   console.log({ board });
 
   return (
@@ -266,58 +258,15 @@ function App() {
             justifyContent: "center",
           }}
         >
-          {list.map((c, i) => (
-            <div
-              key={i}
-              style={{
-                color: "black",
-                display: "flex",
-                gap: "20px",
-                border: "solid 1px black",
-              }}
-            >
-              {c.map((cur, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    if (cur.id === `${i}${idx}`) {
-                      setList((p) => {
-                        const newList = p.map((cp) =>
-                          cp.map((curp) => {
-                            return curp.id !== cur.id
-                              ? curp
-                              : { ...curp, select: true };
-                          })
-                        );
-                        return newList;
-                      });
-                      console.log("jojo", list[i][idx]);
-                    }
-                    console.log("ja ja", `${i}${idx}`, cur.id);
-                  }}
-                  style={{
-                    display: "flex",
-                    border: "solid 1px black",
-                    background: `${cur.select ? "red" : "green"}`,
-                  }}
-                >
-                  {cur.value}
-                </div>
-              ))}
-            </div>
-          ))}
           {board.map((c, i) => (
             <div
               key={`${i}row`}
               style={{
-                // width: "auto",
                 display: "flex",
                 color: "yellow",
                 border: "solid 1px red",
-                // color: "black",
                 alignItems: "center",
                 justifyContent: "center",
-                // gap: "14px",
               }}
             >
               {c.map((cur, idx) => (
@@ -378,9 +327,6 @@ function App() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr 1fr",
               gap: "10px 60px",
-              // flexDirection: "column",
-              // alignItems: "center",
-              // justifyItems: "center",
             }}
           >
             {wordList.map((cur, idx) => (
