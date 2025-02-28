@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { WORD_LIST } from "./constants";
 import { Letter, Row } from "./types";
 import { getRandomLetter } from "./utils";
@@ -117,7 +117,6 @@ function App() {
           pcur.id === letter.id ? { ...pcur, select: !pcur.select } : pcur
         )
       );
-      console.log("end", { updatedList });
       return updatedList;
     });
   };
@@ -132,7 +131,6 @@ function App() {
           pcur.id === letter.id ? { ...pcur, select: true } : pcur
         )
       );
-      console.log("end", { updatedList });
       return updatedList;
     });
   };
@@ -143,10 +141,6 @@ function App() {
   //   return existLetter;
   //   // setCurrentWord(existLetter);
   // };
-
-  // useEffect(() => {
-  //   setCurrentWord((p) => p.filter((c) => c.select));
-  // }, [currentWord]);
 
   return (
     <>
@@ -214,9 +208,7 @@ function App() {
                   onMouseMove={() => {
                     if (!startSelect) return;
                     onSelectLetter({ letter: cur, rowId: i, columnId: idx });
-                    // uniqueLetter(p, cur)
                     setCurrentWord((p) => [...p, cur]);
-                    console.log({ currentWord });
                   }}
                 >
                   {cur.value}
