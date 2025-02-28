@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WORD_LIST } from "./constants";
 import { Letter, Row } from "./types";
 import { getRandomLetter } from "./utils";
@@ -101,7 +101,7 @@ function App() {
   const [startSelect, setStartSelect] = useState(false);
   const [currentWord, setCurrentWord] = useState<Letter[]>([]);
 
-  console.log({ board });
+  // console.log({ board });
 
   type OnToggleSelectInput = {
     letter: Letter;
@@ -119,6 +119,8 @@ function App() {
       );
       return updatedList;
     });
+    if (letter.select) return;
+    setCurrentWord((p) => [...p, letter]);
   };
 
   type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
@@ -141,6 +143,16 @@ function App() {
   //   return existLetter;
   //   // setCurrentWord(existLetter);
   // };
+
+  useEffect(() => {
+    const searchedWord = currentWord.map((c) => {
+      const newLetter = { id: c.id, letter: c.value };
+      return newLetter;
+    });
+
+    console.log({ searchedWord });
+    console.log(currentWord);
+  }, [currentWord]);
 
   return (
     <>
@@ -181,8 +193,8 @@ function App() {
               key={`${i}row`}
               style={{
                 display: "flex",
-                color: "yellow",
-                border: "solid 1px red",
+                color: "#eee",
+                // border: "solid 1px red",
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -195,7 +207,7 @@ function App() {
                     width: "50px",
                     fontSize: "40px",
                     userSelect: "none",
-                    background: `${cur.select ? "red" : "midnightblue"}`,
+                    background: `${cur.select ? "orange" : "#222"}`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -247,13 +259,13 @@ function App() {
               </li>
             ))}
           </ul>
-          <ul>
+          {/* <ul>
             {checkWord.map((cur, idx) => (
               <li key={idx} onClick={() => console.log("not checked")}>
                 {cur}
               </li>
             ))}
-          </ul>
+          </ul> */}
         </section>
       </main>
       <footer style={{ width: "100%", textAlign: "center", padding: "40px" }}>
