@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WORD_LIST } from "./constants";
 import { Letter, Row } from "./types";
 import { getRandomLetter } from "./utils";
@@ -103,6 +103,25 @@ function App() {
 
   console.log({ board });
 
+  type OnToggleSelectInput = {
+    letter: Letter;
+    rowId: number;
+    columnId: number;
+  };
+
+  const OnToggleSelect = ({ letter, rowId, columnId }: OnToggleSelectInput) => {
+    if (letter.id !== `${rowId}${columnId}`) return;
+    setBoard((p) => {
+      const updatedList = p.map((prevc) =>
+        prevc.map((pcur) =>
+          pcur.id === letter.id ? { ...pcur, select: !pcur.select } : pcur
+        )
+      );
+      console.log("end", { updatedList });
+      return updatedList;
+    });
+  };
+
   type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
 
   const onSelectLetter = ({ letter, rowId, columnId }: OnSelectInput) => {
@@ -124,6 +143,10 @@ function App() {
   //   return existLetter;
   //   // setCurrentWord(existLetter);
   // };
+
+  // useEffect(() => {
+  //   setCurrentWord((p) => p.filter((c) => c.select));
+  // }, [currentWord]);
 
   return (
     <>
@@ -157,6 +180,7 @@ function App() {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onMouseLeave={() => setStartSelect(false)}
         >
           {board.map((c, i) => (
             <div
@@ -183,7 +207,7 @@ function App() {
                     justifyContent: "center",
                   }}
                   onClick={() =>
-                    onSelectLetter({ letter: cur, rowId: i, columnId: idx })
+                    OnToggleSelect({ letter: cur, rowId: i, columnId: idx })
                   }
                   onMouseDown={() => setStartSelect(true)}
                   onMouseUp={() => setStartSelect(false)}
