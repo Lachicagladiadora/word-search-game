@@ -97,16 +97,21 @@ const INITIAL_BOARD = [
 function App() {
   const [wordList, setWordList] = useState(initialWordList(WORD_LIST));
   const [checkWord, setCheckWord] = useState<string[]>([]);
+  // const []=useState()
   const [board, setBoard] = useState<Row[]>(INITIAL_BOARD);
   const [startSelect, setStartSelect] = useState(false);
   const [currentWord, setCurrentWord] = useState<Letter[]>([]);
-
-  // console.log({ board });
 
   type OnToggleSelectInput = {
     letter: Letter;
     rowId: number;
     columnId: number;
+  };
+
+  const AddLetter = (letter: Letter) => {
+    const existLetter = currentWord.filter((c) => c.id === letter.id);
+    if (existLetter.length) return;
+    setCurrentWord((p) => [...p, letter]);
   };
 
   const OnToggleSelect = ({ letter, rowId, columnId }: OnToggleSelectInput) => {
@@ -120,7 +125,7 @@ function App() {
       return updatedList;
     });
     if (letter.select) return;
-    setCurrentWord((p) => [...p, letter]);
+    AddLetter(letter);
   };
 
   type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
@@ -145,13 +150,21 @@ function App() {
   // };
 
   useEffect(() => {
-    const searchedWord = currentWord.map((c) => {
-      const newLetter = { id: c.id, letter: c.value };
-      return newLetter;
-    });
-
-    console.log({ searchedWord });
-    console.log(currentWord);
+    const _word = currentWord.map((c) => c.value).join("");
+    console.log({ word: _word });
+    const _checkWord = wordList.filter((c) => c === _word);
+    console.log(_checkWord.length);
+    if (!_checkWord.length) {
+      console.log({ _checkWord });
+      console.log("not exist :'(");
+      return;
+    }
+    console.log({ _checkWord });
+    setCheckWord((p) => [...p, _word]);
+    setWordList((p) => p.filter((c) => c !== _word));
+    console.log(":)= check word");
+    setCheckWord([]);
+    console.log({ currentWord, word: _word });
   }, [currentWord]);
 
   return (
@@ -220,7 +233,8 @@ function App() {
                   onMouseMove={() => {
                     if (!startSelect) return;
                     onSelectLetter({ letter: cur, rowId: i, columnId: idx });
-                    setCurrentWord((p) => [...p, cur]);
+                    AddLetter(cur);
+                    setCurrentWord([]);
                   }}
                 >
                   {cur.value}
@@ -259,13 +273,13 @@ function App() {
               </li>
             ))}
           </ul>
-          {/* <ul>
+          <ul>
             {checkWord.map((cur, idx) => (
               <li key={idx} onClick={() => console.log("not checked")}>
                 {cur}
               </li>
             ))}
-          </ul> */}
+          </ul>
         </section>
       </main>
       <footer style={{ width: "100%", textAlign: "center", padding: "40px" }}>
