@@ -150,21 +150,22 @@ function App() {
   // };
 
   useEffect(() => {
-    const _word = currentWord.map((c) => c.value).join("");
-    console.log({ word: _word });
-    const _checkWord = wordList.filter((c) => c === _word);
-    console.log(_checkWord.length);
-    if (!_checkWord.length) {
-      console.log({ _checkWord });
-      console.log("not exist :'(");
-      return;
-    }
+    // console.log({ word: _word });
+    const _checkWord = [...new Set(currentWord)];
+    // const _word = _checkWord.map((c) => c.value).join("");
+    // console.log(_checkWord.length);
+    // if (!_checkWord.length) {
+    //   console.log({ _checkWord });
+    //   console.log("not exist :'(");
+    //   return;
+    // }
+    console.log({ currentWord });
     console.log({ _checkWord });
-    setCheckWord((p) => [...p, _word]);
-    setWordList((p) => p.filter((c) => c !== _word));
+    // setCheckWord((p) => [...p, _word]);
+    // setWordList((p) => p.filter((c) => c !== _word));
     console.log(":)= check word");
-    setCheckWord([]);
-    console.log({ currentWord, word: _word });
+    // setCheckWord([]);
+    // console.log({ currentWord, word: _word });
   }, [currentWord]);
 
   return (
@@ -234,7 +235,7 @@ function App() {
                     if (!startSelect) return;
                     onSelectLetter({ letter: cur, rowId: i, columnId: idx });
                     AddLetter(cur);
-                    setCurrentWord([]);
+                    // setCurrentWord([]);
                   }}
                 >
                   {cur.value}
