@@ -149,23 +149,32 @@ function App() {
   //   // setCurrentWord(existLetter);
   // };
 
+  // console.log({ board });
   useEffect(() => {
-    // console.log({ word: _word });
-    const _checkWord = [...new Set(currentWord)];
-    // const _word = _checkWord.map((c) => c.value).join("");
-    // console.log(_checkWord.length);
-    // if (!_checkWord.length) {
-    //   console.log({ _checkWord });
-    //   console.log("not exist :'(");
-    //   return;
-    // }
-    console.log({ currentWord });
-    console.log({ _checkWord });
-    // setCheckWord((p) => [...p, _word]);
-    // setWordList((p) => p.filter((c) => c !== _word));
+    const _checkWord = [...new Set(currentWord)].map((c) => c.value);
     console.log(":)= check word");
-    // setCheckWord([]);
-    // console.log({ currentWord, word: _word });
+
+    const straight = _checkWord.join("");
+    const reverse = _checkWord.reverse().join("");
+    const existStraight = wordList.filter((c) => c === straight).length;
+    const existReverse = wordList.filter((c) => c === reverse).length;
+
+    if (existStraight) {
+      setCheckWord((p) => [...p, straight]);
+      setWordList((p) => p.filter((c) => c !== straight));
+      setCheckWord([]);
+      console.log({ straight });
+      return;
+    }
+    console.log({ currentWord });
+    if (existReverse) {
+      setCheckWord((p) => [...p, reverse]);
+      setWordList((p) => p.filter((c) => c !== reverse));
+      setCheckWord([]);
+      console.log({ reverse });
+      return;
+    }
+    console.log({ _checkWord });
   }, [currentWord]);
 
   return (
