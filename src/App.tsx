@@ -150,6 +150,11 @@ function App() {
   // };
 
   // console.log({ board });
+
+  // const onUndo =()=>{
+  //   )
+  // }
+
   useEffect(() => {
     const _checkWord = [...new Set(currentWord)].map((c) => c.value);
     setStartSelect(false);
@@ -213,6 +218,7 @@ function App() {
           justifyItems: "center",
         }}
       >
+        <button onClick={() => setCurrentWord((p) => p.pop())}>undo</button>
         <section
           style={{
             width: "100%",
