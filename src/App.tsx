@@ -152,30 +152,45 @@ function App() {
   // console.log({ board });
   useEffect(() => {
     const _checkWord = [...new Set(currentWord)].map((c) => c.value);
-    console.log(":)= check word");
-
+    setStartSelect(false);
     const straight = _checkWord.join("");
     const reverse = _checkWord.reverse().join("");
-    const existStraight = wordList.filter((c) => c === straight).length;
-    const existReverse = wordList.filter((c) => c === reverse).length;
+
+    // const compareCurrentWordWithSomeWordList = () => {
+    const existStraight = wordList.filter(
+      (c) => c.toLocaleLowerCase() === straight.toLocaleLowerCase()
+    ).length;
+    const existReverse = wordList.filter(
+      (c) => c.toLocaleLowerCase() === reverse.toLocaleLowerCase()
+    ).length;
+    console.log(":)= check word", { existStraight }, { existReverse });
 
     if (existStraight) {
       setCheckWord((p) => [...p, straight]);
-      setWordList((p) => p.filter((c) => c !== straight));
-      setCheckWord([]);
+      setWordList((p) =>
+        p.filter((c) => straight.toLocaleLowerCase() !== c.toLocaleLowerCase())
+      );
       console.log({ straight });
+      setCurrentWord([]);
       return;
     }
     console.log({ currentWord });
     if (existReverse) {
       setCheckWord((p) => [...p, reverse]);
-      setWordList((p) => p.filter((c) => c !== reverse));
-      setCheckWord([]);
+      setWordList((p) =>
+        p.filter((c) => reverse.toLocaleLowerCase() !== c.toLocaleLowerCase())
+      );
       console.log({ reverse });
+      setCurrentWord([]);
       return;
     }
+    // };
+    // compareCurrentWordWithSomeWordList();
+
     console.log({ _checkWord });
-  }, [currentWord]);
+    console.log({ currentWord });
+  }, [currentWord, wordList]);
+  console.log({ currentWord });
 
   return (
     <>
