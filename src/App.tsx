@@ -3,7 +3,7 @@ import { WORD_LIST } from "./constants";
 import { Letter, Row } from "./types";
 import { getRandomLetter } from "./utils";
 
-const initialWordList = (object): string[] => {
+const initialWordList = (object: any): string[] => {
   const keys = Object.keys(object);
   const random = keys[Math.floor(Math.random() * keys.length)];
   const listRandom = object[`${random}`];
@@ -218,7 +218,16 @@ function App() {
           justifyItems: "center",
         }}
       >
-        <button onClick={() => setCurrentWord((p) => p.pop())}>undo</button>
+        <button
+          onClick={() =>
+            setCurrentWord((p) => {
+              if (p.length === 0) return [];
+              return p.pop();
+            })
+          }
+        >
+          undo
+        </button>
         <section
           style={{
             width: "100%",
