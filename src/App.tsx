@@ -111,7 +111,7 @@ function App() {
   const AddLetter = (letter: Letter) => {
     const existLetter = currentWord.filter((c) => c.id === letter.id);
     if (existLetter.length) return;
-    setCurrentWord((p) => [...p, letter]);
+    setCurrentWord((p) => [...p, { ...letter, select: !letter.select }]);
   };
 
   const OnToggleSelect = ({ letter, rowId, columnId }: OnToggleSelectInput) => {
@@ -135,7 +135,7 @@ function App() {
     setBoard((p) => {
       const updatedList = p.map((prevc) =>
         prevc.map((pcur) =>
-          pcur.id === letter.id ? { ...pcur, select: true } : pcur
+          pcur.id === letter.id ? { ...pcur, select: !pcur.select } : pcur
         )
       );
       return updatedList;
@@ -219,10 +219,20 @@ function App() {
         }}
       >
         <button
+          style={{
+            padding: "4px 8px",
+            margin: "8px",
+          }}
           onClick={() =>
             setCurrentWord((p) => {
-              if (p.length === 0) return [];
-              return p.pop();
+              if (!p.length) return [];
+              console.log({ p });
+              return p
+                .map((c, i) => {
+                  if (i !== p.length - 1) return c;
+                  return { ...c, select: false };
+                })
+                .filter((_c, i) => i !== p.length - 1);
             })
           }
         >
@@ -273,6 +283,7 @@ function App() {
                   onMouseMove={() => {
                     if (!startSelect) return;
                     onSelectLetter({ letter: cur, rowId: i, columnId: idx });
+
                     AddLetter(cur);
                     // setCurrentWord([]);
                   }}
