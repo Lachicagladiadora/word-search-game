@@ -97,7 +97,6 @@ const INITIAL_BOARD = [
 function App() {
   const [wordList, setWordList] = useState(initialWordList(WORD_LIST));
   const [checkWord, setCheckWord] = useState<string[]>([]);
-  // const []=useState()
   const [board, setBoard] = useState<Row[]>(INITIAL_BOARD);
   const [startSelect, setStartSelect] = useState(false);
   const [currentWord, setCurrentWord] = useState<Letter[]>([]);
@@ -128,7 +127,6 @@ function App() {
     });
     if (letter.select) return;
     setCurrentWord((p) => [...p, { ...letter, select: !letter.select }]);
-    // AddLetter(letter);
   };
 
   // type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
@@ -152,11 +150,18 @@ function App() {
   //   // setCurrentWord(existLetter);
   // };
 
-  // console.log({ board });
-
-  // const onUndo =()=>{
-  //   )
-  // }
+  const onRemoveLastLetter = () => {
+    if (currentWord.length === 0) return;
+    setCurrentWord((p) => p.filter((c) => c.id !== p.at(-1).id));
+    setBoard((p) => {
+      return p.map((cur) =>
+        cur.map((c) => {
+          if (c.id !== currentWord.at(-1).id) return c;
+          return { ...c, select: false };
+        })
+      );
+    });
+  };
 
   useEffect(() => {
     const _checkWord = [...new Set(currentWord)].map((c) => c.value);
@@ -200,10 +205,6 @@ function App() {
   }, [currentWord, wordList]);
   console.log({ currentWord });
 
-  // useEffect(()=>{
-  //   // setCurrentWord(board.map(cur=>cur.map(c=>c.select)))
-  // },[])
-
   return (
     <>
       <header
@@ -230,33 +231,9 @@ function App() {
             padding: "4px 8px",
             margin: "8px",
           }}
-          onClick={
-            () => {
-              setCurrentWord((p) => p.filter((c) => c.id !== p[length - 1].id));
-              setBoard((p) => {
-                return p.map((cur) =>
-                  cur.map((c) => {
-                    if (c.id !== currentWord[currentWord.length - 1].id)
-                      return c;
-                    return { ...c, select: false };
-                  })
-                );
-              });
-            }
-            // setCurrentWord((p) => {
-            //   if (!p.length) return [];
-            //   console.log({ p });
-            //   return [...p, { ...p[p.length - 1], select: false }];
-            //   // return p
-            //   //   .map((c, i) => {
-            //   //     if (i !== p.length - 1) return c;
-            //   //     return { ...c, select: false };
-            //   //   })
-            //   //   .filter((_c) => _c.select);
-            // })
-          }
+          onClick={onRemoveLastLetter}
         >
-          undo
+          Undo
         </button>
         <section
           style={{
