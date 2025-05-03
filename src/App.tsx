@@ -102,17 +102,19 @@ function App() {
   const [startSelect, setStartSelect] = useState(false);
   const [currentWord, setCurrentWord] = useState<Letter[]>([]);
 
+  console.log({ board });
+
   type OnToggleSelectInput = {
     letter: Letter;
     rowId: number;
     columnId: number;
   };
 
-  const AddLetter = (letter: Letter) => {
-    const existLetter = currentWord.filter((c) => c.id === letter.id);
-    if (existLetter.length) return;
-    setCurrentWord((p) => [...p, { ...letter, select: !letter.select }]);
-  };
+  // const AddLetter = (letter: Letter) => {
+  //   const existLetter = currentWord.filter((c) => c.id === letter.id);
+  //   if (existLetter.length) return;
+  //   setCurrentWord((p) => [...p, { ...letter, select: !letter.select }]);
+  // };
 
   const OnToggleSelect = ({ letter, rowId, columnId }: OnToggleSelectInput) => {
     if (letter.id !== `${rowId}${columnId}`) return;
@@ -125,22 +127,23 @@ function App() {
       return updatedList;
     });
     if (letter.select) return;
-    AddLetter(letter);
+    setCurrentWord((p) => [...p, { ...letter, select: !letter.select }]);
+    // AddLetter(letter);
   };
 
-  type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
+  // type OnSelectInput = { letter: Letter; rowId: number; columnId: number };
 
-  const onSelectLetter = ({ letter, rowId, columnId }: OnSelectInput) => {
-    if (letter.id !== `${rowId}${columnId}`) return;
-    setBoard((p) => {
-      const updatedList = p.map((prevc) =>
-        prevc.map((pcur) =>
-          pcur.id === letter.id ? { ...pcur, select: !pcur.select } : pcur
-        )
-      );
-      return updatedList;
-    });
-  };
+  // const onSelectLetter = ({ letter, rowId, columnId }: OnSelectInput) => {
+  //   if (letter.id !== `${rowId}${columnId}`) return;
+  //   setBoard((p) => {
+  //     const updatedList = p.map((prevc) =>
+  //       prevc.map((pcur) =>
+  //         pcur.id === letter.id ? { ...pcur, select: !pcur.select } : pcur
+  //       )
+  //     );
+  //     return updatedList;
+  //   });
+  // };
 
   // const uniqueLetter = (arr: Letter[], letter: Letter) => {
   //   const existLetter = arr.filter((c) => (c.id === letter.id ? false : true));
@@ -197,6 +200,10 @@ function App() {
   }, [currentWord, wordList]);
   console.log({ currentWord });
 
+  // useEffect(()=>{
+  //   // setCurrentWord(board.map(cur=>cur.map(c=>c.select)))
+  // },[])
+
   return (
     <>
       <header
@@ -223,17 +230,30 @@ function App() {
             padding: "4px 8px",
             margin: "8px",
           }}
-          onClick={() =>
-            setCurrentWord((p) => {
-              if (!p.length) return [];
-              console.log({ p });
-              return p
-                .map((c, i) => {
-                  if (i !== p.length - 1) return c;
-                  return { ...c, select: false };
-                })
-                .filter((_c, i) => i !== p.length - 1);
-            })
+          onClick={
+            () => {
+              setCurrentWord((p) => p.filter((c) => c.id !== p[length - 1].id));
+              setBoard((p) => {
+                return p.map((cur) =>
+                  cur.map((c) => {
+                    if (c.id !== currentWord[currentWord.length - 1].id)
+                      return c;
+                    return { ...c, select: false };
+                  })
+                );
+              });
+            }
+            // setCurrentWord((p) => {
+            //   if (!p.length) return [];
+            //   console.log({ p });
+            //   return [...p, { ...p[p.length - 1], select: false }];
+            //   // return p
+            //   //   .map((c, i) => {
+            //   //     if (i !== p.length - 1) return c;
+            //   //     return { ...c, select: false };
+            //   //   })
+            //   //   .filter((_c) => _c.select);
+            // })
           }
         >
           undo
@@ -278,15 +298,15 @@ function App() {
                   onClick={() =>
                     OnToggleSelect({ letter: cur, rowId: i, columnId: idx })
                   }
-                  onMouseDown={() => setStartSelect(true)}
-                  onMouseUp={() => setStartSelect(false)}
-                  onMouseMove={() => {
-                    if (!startSelect) return;
-                    onSelectLetter({ letter: cur, rowId: i, columnId: idx });
+                  // onMouseDown={() => setStartSelect(true)}
+                  // onMouseUp={() => setStartSelect(false)}
+                  // onMouseMove={() => {
+                  //   if (!startSelect) return;
+                  //   onSelectLetter({ letter: cur, rowId: i, columnId: idx });
 
-                    AddLetter(cur);
-                    // setCurrentWord([]);
-                  }}
+                  //   AddLetter(cur);
+                  //   // setCurrentWord([]);
+                  // }}
                 >
                   {cur.value}
                 </div>
